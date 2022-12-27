@@ -5,12 +5,13 @@ import MyBlock from './MyBlock';
 import getGoogleSpreadsheet from './axios';
 
 import defaultData from './defaultData';
+import defaultColors from './defaultColors';
 
 export default function MyGrid() {
 
-    const [data, setData] = useState([]);
+    const [phrases, setPhrases] = useState([]);
+    const [colors, setColors] = useState([]);
     const [isLoading, setLoading] = useState(true);
-
 
     const parseSpreadsheetData = (result) => {
         const resultData = result != null
@@ -19,22 +20,37 @@ export default function MyGrid() {
             ? result.data.values
         : [];
 
-        return resultData.map((item) => {
+        const phrasesData = [];
+        const colorsData = [];
+
+        resultData.forEach((item) => {
             if (item && item.length > 0) {
-                return item[0];
+                phrasesData.push(item[0]);
+            }
+
+            if (item && item.length > 1) {
+                colorsData.push(item[1]);
             }
         });
+
+        return [phrasesData, colorsData];
     };
 
     useEffect(() => {
         getGoogleSpreadsheet()
           .then((result) => {
-            const resultData = parseSpreadsheetData(result);
+            const [phrasesData, colorsData] = parseSpreadsheetData(result);
 
-            if (resultData.length) {
-                setData(resultData);
+            if (phrasesData.length) {
+                setPhrases(phrasesData);
             } else {
-                setData(defaultData);
+                setPhrases(defaultData);
+            }
+
+            if (colorsData.length) {
+                setColors(colorsData);
+            } else {
+                setPhrases(defaultColors);
             }
 
             setLoading(false);
@@ -42,7 +58,7 @@ export default function MyGrid() {
           .catch((err) => {
             console.warn("Could not connect to your Google Spreadsheet, refer to Google Sheets API: https://developers.google.com/sheets/api/guides/concepts");
             console.warn("Falling back to default data.");
-            setData(defaultData);
+            setPhrases(defaultData);
             setLoading(false);
           });
       }, []);
@@ -57,21 +73,19 @@ export default function MyGrid() {
                 justifyContent="center"
                 style={{ minHeight: '100vh' }}
             >
-
                 <Grid item xs={3}>
                     <CircularProgress />
                 </Grid>
-
             </Grid>
         )
     }
 
     return (
-        <Grid sx={{ flexGrow: 1, height: '100vh' }} container spacing={0}>
+        <Grid sx={{ flexGrow: 1, height: '100vh' }} container spacing={0} key={"grid-key"}>
             <Grid item xs={12} md={12} lg={12}>
                 <Grid container spacing={0}>
                 {Array.from(Array(5)).map((k) => (
-                    <MyBlock data={data} key={k} value={data.pop()} refreshRate={Math.floor(Math.random() * (5000 - 1500 + 1) + 5000)}/>
+                    <MyBlock phrases={phrases} colors={colors} key={k} color={colors.pop()} phrase={phrases.pop()} refreshRate={Math.floor(Math.random() * (5000 - 1500 + 1) + 5000)}/>
                 ))}
                 </Grid>
             </Grid>
@@ -79,16 +93,7 @@ export default function MyGrid() {
             <Grid item xs={12} md={12} lg={12}>
                 <Grid container spacing={0}>
                 {Array.from(Array(5)).map((k) => (
-                    <MyBlock data={data} key={k} value={data.pop()} refreshRate={Math.floor(Math.random() * (5000 - 2000 + 1) + 5000)}/>
-                ))}
-                </Grid>
-            </Grid>
-
-            <Grid item xs={12} md={12} lg={12}>
-                <Grid container spacing={0}>
-
-                {Array.from(Array(5)).map((k) => (
-                    <MyBlock data={data} key={k} value={data.pop()} refreshRate={Math.floor(Math.random() * (4000 - 2000 + 1) + 4000)}/>
+                    <MyBlock phrases={phrases} colors={colors} key={k} color={colors.pop()} phrase={phrases.pop()} refreshRate={Math.floor(Math.random() * (5000 - 2000 + 1) + 5000)}/>
                 ))}
                 </Grid>
             </Grid>
@@ -97,7 +102,7 @@ export default function MyGrid() {
                 <Grid container spacing={0}>
 
                 {Array.from(Array(5)).map((k) => (
-                    <MyBlock data={data} key={k} value={data.pop()} refreshRate={Math.floor(Math.random() * (6000 - 2000 + 1) + 6000)}/>
+                    <MyBlock phrases={phrases} colors={colors} key={k} color={colors.pop()} phrase={phrases.pop()} refreshRate={Math.floor(Math.random() * (4000 - 2000 + 1) + 4000)}/>
                 ))}
                 </Grid>
             </Grid>
@@ -106,7 +111,16 @@ export default function MyGrid() {
                 <Grid container spacing={0}>
 
                 {Array.from(Array(5)).map((k) => (
-                    <MyBlock data={data} key={k} value={data.pop()} refreshRate={Math.floor(Math.random() * (4500 - 2000 + 1) + 4500)}/>
+                    <MyBlock phrases={phrases} colors={colors} key={k} color={colors.pop()} phrase={phrases.pop()} refreshRate={Math.floor(Math.random() * (6000 - 2000 + 1) + 6000)}/>
+                ))}
+                </Grid>
+            </Grid>
+
+            <Grid item xs={12} md={12} lg={12}>
+                <Grid container spacing={0}>
+
+                {Array.from(Array(5)).map((k) => (
+                    <MyBlock phrases={phrases} colors={colors} key={k} color={colors.pop()} phrase={phrases.pop()} refreshRate={Math.floor(Math.random() * (4500 - 2000 + 1) + 4500)}/>
                 ))}
                 </Grid>
             </Grid>

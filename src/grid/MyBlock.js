@@ -2,33 +2,42 @@ import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Slide from '@mui/material/Slide';
-
 import TypeWriterEffect from 'react-typewriter-effect';
-import defaultColors from './defaultColors';
 
 export default function MyGrid(props) {
     const typeSpeed = 70;
-    const colors = [...defaultColors];
 
-    const [color, setColor] = useState(colors.splice(Math.random() * colors.length, 1).pop());
-    const [value, setValue] = useState(props.value);
+    const [phrase, setPhrase] = useState(props.phrase);
+    const [color, setColor] = useState(props.color);
 
     useEffect(() => {
-        let data = props.data.shift();
+        let newPhrase = props.phrases.shift();
+        let newColor = props.colors.shift();
 
-        if (data === undefined) {
-            setValue(value);
+        if (!newPhrase) {
+            console.log("New Phrase is undefined...")
+            setPhrase(phrase);
         }
-        const _color = colors.splice(Math.random() * colors.length, 1).pop();
+
+        if (!newColor) {
+            console.log("New Color is undefined...")
+            setColor(color);
+        }
+
         const timeOutId = setTimeout(() => {
-            props.data.push(value);
-            setValue(data);
-            colors.push(color);
-            setColor(_color);
+           // Push color back into the queue.
+           props.colors.push(color);
+           // Set new phrase.
+           setColor(newColor);
+
+            // Push phrase back into the queue.
+            props.phrases.push(phrase);
+            // Set new phrase.
+            setPhrase(newPhrase);
         }, props.refreshRate);
 
         return () => clearTimeout(timeOutId);
-    }, [value]);
+    }, [phrase]);
 
     return (
         <Slide direction="up" in={true}>
@@ -49,7 +58,6 @@ export default function MyGrid(props) {
                         animation: 'slide-in 0.5s normal',
                     }}
                 >
-
                     <TypeWriterEffect
                         style={{
                             verticalAlign: 'middle'
@@ -63,8 +71,8 @@ export default function MyGrid(props) {
                         }}
                         startDelay={50}
                         cursorColor="white"
-                        text={value}
-                        key={"key-" + value}
+                        text={phrase}
+                        key={"key-" + phrase}
                         typeSpeed={typeSpeed}/>
                 </Paper>
             </Grid>
