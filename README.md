@@ -1,6 +1,7 @@
 # Google Trends
 
 An application to visualize Google Trends.
+* https://main.d3tax412kkc7na.amplifyapp.com/
 
 ## Running Locally
 
