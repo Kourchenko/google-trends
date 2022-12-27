@@ -18,7 +18,7 @@ export default function MyGrid(props) {
             setPhrase(phrase);
         }
 
-        if (!newColor) {
+        if (newColor === undefined) {
             setColor(color);
         }
 
@@ -32,10 +32,11 @@ export default function MyGrid(props) {
             props.phrases.push(phrase);
             // Set new phrase.
             setPhrase(newPhrase);
+
         }, props.refreshRate);
 
         return () => clearTimeout(timeOutId);
-    }, [phrase]);
+    }, [phrase, color]);
 
     return (
         <Slide direction="up" in={true}>

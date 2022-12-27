@@ -41,16 +41,16 @@ export default function MyGrid() {
           .then((result) => {
             const [phrasesData, colorsData] = parseSpreadsheetData(result);
 
-            if (phrasesData.length) {
+            if (phrasesData.length > 0) {
                 setPhrases(phrasesData);
             } else {
                 setPhrases(defaultData);
             }
 
-            if (colorsData.length) {
+            if (colorsData.length > 0) {
                 setColors(colorsData);
             } else {
-                setPhrases(defaultColors);
+                setColors(defaultColors);
             }
 
             setLoading(false);
