@@ -15,12 +15,10 @@ export default function MyGrid(props) {
         let newColor = props.colors.shift();
 
         if (!newPhrase) {
-            console.log("New Phrase is undefined...")
             setPhrase(phrase);
         }
 
         if (!newColor) {
-            console.log("New Color is undefined...")
             setColor(color);
         }
 
