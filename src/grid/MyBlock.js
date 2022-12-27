@@ -18,7 +18,7 @@ export default function MyGrid(props) {
             setPhrase(phrase);
         }
 
-        if (newColor === undefined) {
+        if (!newColor) {
             setColor(color);
         }
 
