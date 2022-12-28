@@ -96,49 +96,16 @@ export default function MyGrid() {
     }
 
     return (
-        <Grid sx={{ flexGrow: 1, height: '100vh' }} container spacing={0} key={"grid-key"}>
-            <Grid item xs={12} md={12} lg={12}>
-                <Grid container spacing={0}>
-                {Array.from(Array(5)).map((k) => (
-                    <MyBlock phrases={phrases} colors={colors} key={k} color={colors.pop()} phrase={phrases.pop()} refreshRate={Math.floor(Math.random() * (5000 - 1500 + 1) + 5000)}/>
-                ))}
+        <Grid sx={{ flexGrow: 1, height: '100vh' }} container spacing={0}>
+            {Array.from(Array(5)).map((k, i) => (
+                <Grid item xs={12} md={12} lg={12} key={i}>
+                    <Grid container spacing={0} key={i + i}>
+                        {Array.from(Array(5)).map((k) => (
+                            <MyBlock phrases={phrases} colors={colors} key={k} color={colors.pop()} phrase={phrases.pop()} refreshRate={Math.floor(Math.random() * (5000 - 1500 + 1) + 5000)}/>
+                        ))}
+                    </Grid>
                 </Grid>
-            </Grid>
-
-            <Grid item xs={12} md={12} lg={12}>
-                <Grid container spacing={0}>
-                {Array.from(Array(5)).map((k) => (
-                    <MyBlock phrases={phrases} colors={colors} key={k} color={colors.pop()} phrase={phrases.pop()} refreshRate={Math.floor(Math.random() * (5000 - 2000 + 1) + 5000)}/>
-                ))}
-                </Grid>
-            </Grid>
-
-            <Grid item xs={12} md={12} lg={12}>
-                <Grid container spacing={0}>
-
-                {Array.from(Array(5)).map((k) => (
-                    <MyBlock phrases={phrases} colors={colors} key={k} color={colors.pop()} phrase={phrases.pop()} refreshRate={Math.floor(Math.random() * (4000 - 2000 + 1) + 4000)}/>
-                ))}
-                </Grid>
-            </Grid>
-
-            <Grid item xs={12} md={12} lg={12}>
-                <Grid container spacing={0}>
-
-                {Array.from(Array(5)).map((k) => (
-                    <MyBlock phrases={phrases} colors={colors} key={k} color={colors.pop()} phrase={phrases.pop()} refreshRate={Math.floor(Math.random() * (6000 - 2000 + 1) + 6000)}/>
-                ))}
-                </Grid>
-            </Grid>
-
-            <Grid item xs={12} md={12} lg={12}>
-                <Grid container spacing={0}>
-
-                {Array.from(Array(5)).map((k) => (
-                    <MyBlock phrases={phrases} colors={colors} key={k} color={colors.pop()} phrase={phrases.pop()} refreshRate={Math.floor(Math.random() * (4500 - 2000 + 1) + 4500)}/>
-                ))}
-                </Grid>
-            </Grid>
+            ))}
         </Grid>
     );
 }
