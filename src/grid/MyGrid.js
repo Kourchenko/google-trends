@@ -8,6 +8,7 @@ import defaultData from './defaultData';
 import defaultColors from './defaultColors';
 
 export default function MyGrid() {
+    const MIN_LIST_SIZE = 200;
 
     const [phrases, setPhrases] = useState([]);
     const [colors, setColors] = useState([]);
@@ -36,23 +37,37 @@ export default function MyGrid() {
         return [phrasesData, colorsData];
     };
 
+    const duplicateList = (list) => {
+        if (list.length > MIN_LIST_SIZE) {
+            return list;
+        }
+
+        return duplicateList(list.concat(list));
+    }
+
     useEffect(() => {
         getGoogleSpreadsheet()
           .then((result) => {
-            const [phrasesData, colorsData] = parseSpreadsheetData(result);
+            let [phrasesData, colorsData] = parseSpreadsheetData(result);
 
-            if (phrasesData.length > 0) {
-                setPhrases(phrasesData);
-            } else {
-                setPhrases(defaultData);
+            if (phrasesData == null || phrasesData.length <= 0) {
+                phrasesData = defaultData;
             }
 
-            if (colorsData.length > 0) {
-                setColors(colorsData);
-            } else {
-                setColors(defaultColors);
+            if (colorsData == null || colorsData.length <= 0) {
+                colorsData = defaultColors;
             }
 
+            if (phrasesData.length < MIN_LIST_SIZE) {
+                phrasesData = duplicateList(phrasesData);
+            }
+
+            if (colorsData.length < MIN_LIST_SIZE) {
+                colorsData = duplicateList(colorsData);
+            }
+
+            setPhrases(phrasesData);
+            setColors(colorsData);
             setLoading(false);
           })
           .catch((err) => {
