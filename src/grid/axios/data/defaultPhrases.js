@@ -1,4 +1,4 @@
-const defaultData = [
+const defaultPhrases = [
     "Marry me chicken",
     "Christmas bark",
     "Cucumber salad",
@@ -51,4 +51,4 @@ const defaultData = [
     "Chicken chili"
 ];
 
-export default defaultData;
+export default defaultPhrases;
