@@ -3,10 +3,7 @@ import Grid from '@mui/material/Grid';
 import CircularProgress from '@mui/material/CircularProgress';
 import MyBlock from './MyBlock';
 import getGoogleSpreadsheet from './axios';
-import { parseSpreadsheetData } from './axios/util';
-
-import defaultPhrases from './axios/data/defaultPhrases'
-import defaultColors from './axios/data/defaultColors';
+import { parseSpreadsheetData, validatePhrasesAndColors } from './axios/util';
 
 export default function MyGrid() {
 
@@ -20,7 +17,9 @@ export default function MyGrid() {
           })
           .catch(() => {
             console.warn("Could not connect to your Google Spreadsheet, refer to Google Sheets API: https://developers.google.com/sheets/api/guides/concepts, using default data.");
-            setPhrasesAndColors({ phrases: defaultPhrases, colors: defaultColors, isLoading: false });
+            let [phrasesData, colorsData] = validatePhrasesAndColors([], []);
+
+            setPhrasesAndColors({ phrases: phrasesData, colors: colorsData, isLoading: false });
           });
       }, []);
 

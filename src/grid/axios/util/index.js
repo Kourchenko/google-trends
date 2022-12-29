@@ -49,7 +49,7 @@ const validatePhrasesAndColors = (phrasesData, colorsData) => {
 
 const duplicateList = (list) => {
     if (list == null || list.length < 1
-            || list.length > MIN_LIST_SIZE) {
+            || list.length >= MIN_LIST_SIZE) {
         return list;
     }
 
@@ -58,5 +58,6 @@ const duplicateList = (list) => {
 
 export {
     parseSpreadsheetData,
-    duplicateList
+    duplicateList,
+    validatePhrasesAndColors
 }
