@@ -41,7 +41,7 @@ export default function MyGrid() {
     }
 
     return (
-        <Grid sx={{ flexGrow: 1, height: '100vh' }} container spacing={0}>
+        <Grid sx={{ height: '100vh', width: '100vw' }} container spacing={0}>
 
             {Array.from(Array(5)).map((_, i) => (
                 <Grid item xs={12} md={12} lg={12} key={`row-${i}-${Math.random()}`}>
