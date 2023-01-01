@@ -1,8 +1,8 @@
 const defaultColors = [
-    "#34a852", // green
-    "#ea4335", // red
-    "#4285f4", // blue
-    "#fabb05" // yellow
+    "rgb(52, 168, 82)", // green
+    "rgb(234, 67, 53)", // red
+    "rgb(66, 133, 244)", // blue
+    "rgb(250, 187, 5)" // yellow
 ];
 
 export default defaultColors;

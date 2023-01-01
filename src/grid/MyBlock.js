@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Slide from '@mui/material/Slide';
+import Link from '@mui/material/Link';
+
 import TypeWriterEffect from 'react-typewriter-effect';
 
 export default function MyGrid(props) {
@@ -29,42 +30,40 @@ export default function MyGrid(props) {
     }, [phraseAndColor]);
 
     return (
-        <Slide direction="up" in={true}>
-            <Grid xs sm md lg key="my-block" item sx={{ flexGrow: 1, height: '10vh' }}>
-                <Paper
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        textAlign: 'center',
-                        alignItems: 'center',
-                        boxShadow: 'none',
-                        color: phraseAndColor.color,
-                        borderRadius: 0,
-                        height: '20vh',
-                        width: '100%',
-                        backgroundColor: phraseAndColor.color,
-                        transition: '1s',
-                        animation: 'slide-in 0.5s normal',
+        <Grid xs sm md lg key="my-block" item sx={{ flexGrow: 1, height: '10vh' }}>
+            <Paper
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                    alignItems: 'center',
+                    boxShadow: 'none',
+                    color: phraseAndColor.color,
+                    borderRadius: 0,
+                    height: '20vh',
+                    width: '100%',
+                    backgroundColor: phraseAndColor.color,
+                    transition: 'all 1s cubic-bezier(0.06,0.74,0.24,1)'
+                }}
+            >
+            <Link underline="none" href={`https://www.google.com/search?q=${phraseAndColor.phrase}`}>
+                <TypeWriterEffect
+                    style={{
+                        verticalAlign: 'middle'
                     }}
-                >
-                    <TypeWriterEffect
-                        style={{
-                            verticalAlign: 'middle'
-                        }}
-                        textStyle={{
-                            fontFamily: 'Roboto',
-                            color: '#fff',
-                            fontWeight: 900,
-                            fontSize: '2vw',
-                            textAlign: 'center'
-                        }}
-                        startDelay={70}
-                        cursorColor="white"
-                        text={phraseAndColor.phrase}
-                        key={"key-" + phraseAndColor.phrase}
-                        typeSpeed={70}/>
-                </Paper>
-            </Grid>
-        </Slide>
+                    textStyle={{
+                        fontFamily: 'Product Sans,sans-serif',
+                        color: '#fff',
+                        fontSize: '1.5vw',
+                        textAlign: 'center'
+                    }}
+                    startDelay={30}
+                    cursorColor="white"
+                    text={phraseAndColor.phrase}
+                    key={"key-" + phraseAndColor.phrase}
+                    typeSpeed={115}/>
+                </Link>
+            </Paper>
+        </Grid>
     );
 }

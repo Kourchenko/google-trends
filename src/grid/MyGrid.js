@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import CircularProgress from '@mui/material/CircularProgress';
+
+import { parseSpreadsheetData, validatePhrasesAndColors } from './axios/util';
 import MyBlock from './MyBlock';
 import getGoogleSpreadsheet from './axios';
-import { parseSpreadsheetData, validatePhrasesAndColors } from './axios/util';
 
 export default function MyGrid() {
 
@@ -42,7 +43,6 @@ export default function MyGrid() {
 
     return (
         <Grid sx={{ height: '100vh', width: '100vw' }} container spacing={0}>
-
             {Array.from(Array(5)).map((_, i) => (
                 <Grid item xs={12} md={12} lg={12} key={`row-${i}-${Math.random()}`}>
                     <Grid container spacing={0} key={`row-${i}-container-${Math.random()}`}>
@@ -54,13 +54,13 @@ export default function MyGrid() {
                                 key={`row-${i}-column-${i}+${Math.random()}`}
                                 color={phrasesAndColors.colors.pop()}
                                 phrase={phrasesAndColors.phrases.pop()}
-                                refreshRate={Math.floor(Math.random() * (5000 - 1500 + 1) + 5000)}/>
+                                refreshRate={Math.floor(Math.random() * (5000 - 2000 + 1) + 5000)}/>
                         ))}
 
                     </Grid>
                 </Grid>
             ))}
-
         </Grid>
     );
 }
+
