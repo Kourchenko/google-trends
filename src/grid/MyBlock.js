@@ -16,16 +16,16 @@ export default function MyGrid(props) {
             setPhraseAndColor({ phrase: phraseAndColor.phrase, color: phraseAndColor.color });
         }
 
-        // const timeOutId = setTimeout(() => {
-        //     // Push phrase & color back into the queue.
-        //     props.phrases.push(phraseAndColor.phrase);
-        //     props.colors.push(phraseAndColor.color);
+        const timeOutId = setTimeout(() => {
+            // Push phrase & color back into the queue.
+            props.phrases.push(phraseAndColor.phrase);
+            props.colors.push(phraseAndColor.color);
 
-        //     // Set new phrase & color.
-        //     setPhraseAndColor({ phrase: newPhrase, color: newColor });
-        // }, props.refreshRate);
+            // Set new phrase & color.
+            setPhraseAndColor({ phrase: newPhrase, color: newColor });
+        }, props.refreshRate);
 
-        // return () => clearTimeout(timeOutId);
+        return () => clearTimeout(timeOutId);
     // eslint-disable-next-line
     }, [phraseAndColor]);
 
